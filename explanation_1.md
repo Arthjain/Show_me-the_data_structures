@@ -1,5 +1,1 @@
-for Least Recently Used (LRU) cache with O(1) operations, the best option to go with dictionary in python which has constant time access of values with particular key. 
-To keep track of the order of the values I have created a queue, which allows constant time of removing elements.
-
-Get Time complexity: O(1) Set Time complexity: O(1)
-Space complexity of the LRU: O(capacity)
+ LRU Cache Uses Pythons's OrderedDict as cache, which keeps track of the order that entries are inserted. Deleting an entry and reinserting it will move it to the end. If the value of a key is changed, the key position does not change. Ordered Dictionaries are implement as hash tables.Hash tables should provide average O(1) for search, insertion and deletion. If m is the size of the data stored in the cache then each set operation will cause it to grow by m up to the maximum size of the cache capacity: O(m*m), n being the cache capacity.
