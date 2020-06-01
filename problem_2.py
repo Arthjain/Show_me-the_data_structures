@@ -1,6 +1,3 @@
-"""Find all files beneath a given path with a given file name suffix.
-Usage: file_recursion.py
-"""
 
 import os
 
