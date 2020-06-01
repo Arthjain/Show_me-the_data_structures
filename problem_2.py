@@ -1,37 +1,44 @@
+"""Find all files beneath a given path with a given file name suffix.
+Usage: file_recursion.py
+"""
+
 import os
 
 
+def main():
+    """Main function call to test the find_files function."""
+    files = find_files(".c", "testdir")
+    print(files)
+    assert files == [
+        "testdir/subdir5/a.c",
+        "testdir/subdir3/subsubdir1/b.c",
+        "testdir/subdir1/a.c",
+        "testdir/t1.c",
+    ]
+
+    print("All test cases passed!")
+
+
 def find_files(suffix, path):
-    """
-    Find all files beneath path with file name suffix.
-
-    Note that a path may contain further subdirectories
-    and those subdirectories may also contain further subdirectories.
-
-    There are no limit to the depth of the subdirectories can be.
-
+    """Find all files beneath path with file name suffix.
     Args:
-      suffix(str): suffix if the file name to be found
-      path(str): path of the file system
-
+        suffix: A str representing the suffix of the file name to be found
+        path: A str representing the path of the file system
     Returns:
-       a list of paths
+        file_list: A list of strs representing paths of files with the given
+            suffix
     """
-    temp = suffix
-    if path:
-        temp = suffix + '/' + path
-    for f in os.listdir(temp):
-        temp1 = temp +  '/' + f
-        #print(f)
-        if os.path.isfile(temp1) and temp1.endswith(".c"):
-            files.append(temp1)
-            #print(temp1)
+    file_list = []
 
-        elif os.path.isdir(temp1):
-            files = find_files(temp, f, files)
-    return files
+    for entry in os.listdir(path):
+        entry_path = os.path.join(path, entry)
+        if os.path.isfile(entry_path) and entry.endswith(suffix):
+            file_list.append(entry_path)
+        if os.path.isdir(entry_path):
+            file_list += find_files(suffix, entry_path)
+
+    return file_list
 
 
-print(find_files('.', 'some_test_dir'))
-print(find_files('.', ''))
-print(find_files('.', 'some_test_dir/some_subdir'))
+if __name__ == "__main__":
+    main()
